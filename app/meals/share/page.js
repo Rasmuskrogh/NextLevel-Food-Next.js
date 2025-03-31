@@ -60,18 +60,21 @@
 
 "use client";
 
+import { useState } from "react";
 import { useFormState } from "react-dom";
 import ImagePicker from "@/components/meals/image-picker";
 import classes from "./page.module.css";
 import { shareMeal } from "@/lib/actions";
 import MealsFormSubmit from "@/components/meals/meal-form-submit";
 
-// ✅ Lägg till din Supabase Storage-bucket URL här
-const SUPABASE_BUCKET_URL =
-  "https://your-supabase-url.storage.supabase.co/meal-images/";
-
 export default function ShareMealPage() {
   const [state, formAction] = useFormState(shareMeal, { message: null });
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // ✅ Funktion för att hantera bildvalet
+  const handleImagePick = (file) => {
+    setSelectedImage(file);
+  };
 
   return (
     <>
@@ -110,19 +113,15 @@ export default function ShareMealPage() {
               required
             ></textarea>
           </p>
-          <ImagePicker label="Your image" name="image" />
-          {state.message && <p>{state.message}</p>}
 
-          {/* ✅ Visa bilden från Supabase Storage om det finns en sparad bild */}
-          {state.image && (
-            <p>
-              <img
-                src={`${SUPABASE_BUCKET_URL}${state.image}`} // 🔧 Uppdaterad bild-URL
-                alt="Uploaded meal"
-                className={classes.imagePreview}
-              />
-            </p>
-          )}
+          {/* ✅ Skickar in onImagePick */}
+          <ImagePicker
+            label="Your image"
+            name="image"
+            onImagePick={handleImagePick}
+          />
+
+          {state.message && <p>{state.message}</p>}
 
           <p className={classes.actions}>
             <MealsFormSubmit />
