@@ -86,6 +86,8 @@ export default function ImagePicker({ label, name, onImagePick }) {
       return;
     }
 
+    console.log("📸 Selected image file:", file);
+
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewImage(fileReader.result);
