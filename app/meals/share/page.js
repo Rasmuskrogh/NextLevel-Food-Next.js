@@ -60,8 +60,8 @@
 
 "use client";
 
-import { useState } from "react";
 import { useFormState } from "react-dom";
+
 import ImagePicker from "@/components/meals/image-picker";
 import classes from "./page.module.css";
 import { shareMeal } from "@/lib/actions";
@@ -69,12 +69,6 @@ import MealsFormSubmit from "@/components/meals/meal-form-submit";
 
 export default function ShareMealPage() {
   const [state, formAction] = useFormState(shareMeal, { message: null });
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  // ✅ Funktion för att hantera bildvalet
-  const handleImagePick = (file) => {
-    setSelectedImage(file);
-  };
 
   return (
     <>
@@ -113,16 +107,8 @@ export default function ShareMealPage() {
               required
             ></textarea>
           </p>
-
-          {/* ✅ Skickar in onImagePick */}
-          <ImagePicker
-            label="Your image"
-            name="image"
-            onImagePick={handleImagePick}
-          />
-
+          <ImagePicker label="Your image" name="image" />
           {state.message && <p>{state.message}</p>}
-
           <p className={classes.actions}>
             <MealsFormSubmit />
           </p>

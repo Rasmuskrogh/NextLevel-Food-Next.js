@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import { getMeal } from "@/lib/meals";
+import { notFound } from "next/navigation";
 import classes from "./page.module.css";
 
 export async function generateMetadata({ params }) {
-  const meal = getMeal(params.mealSlug);
+  const meal = await getMeal(params.mealSlug);
 
   if (!meal) {
     notFound();
@@ -16,20 +16,35 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function MealDetailsPage({ params }) {
-  const meal = getMeal(params.mealSlug);
+export default async function MealDetailsPage({ params }) {
+  const meal = await getMeal(params.mealSlug);
 
-  meal.instructions = meal.instructions.replace(/\n/g, "<br>");
+  if (!meal) {
+    notFound();
+  }
+
+  let imageUrl = meal.image;
+
+  if (meal.image && meal.image.startsWith("/images/")) {
+    imageUrl = meal.image;
+  } else if (meal.image && meal.image.startsWith("http")) {
+    imageUrl = meal.image;
+  } else if (meal.image && !meal.image.startsWith("/")) {
+    imageUrl = `/${meal.image}`;
+  }
+
+  const instructions = meal.instructions.replace(/\n/g, "<br>");
+
   return (
     <>
       <header className={classes.header}>
         <div className={classes.image}>
-          <Image src={meal.image} alt={meal.title} fill />
+          <Image src={imageUrl} alt={meal.title} fill />
         </div>
         <div className={classes.headerText}>
           <h1>{meal.title}</h1>
           <p className={classes.creator}>
-            <a href={`mailto:${meal.creator_email}`}>{meal.creator}</a>
+            by <a href={`mailto:${meal.creator_email}`}>{meal.creator}</a>
           </p>
           <p className={classes.summary}>{meal.summary}</p>
         </div>
@@ -38,7 +53,7 @@ export default function MealDetailsPage({ params }) {
         <p
           className={classes.instructions}
           dangerouslySetInnerHTML={{
-            __html: meal.instructions,
+            __html: instructions,
           }}
         ></p>
       </main>
