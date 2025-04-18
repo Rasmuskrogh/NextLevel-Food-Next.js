@@ -1,15 +1,15 @@
 .header {
   display: flex;
-  padding: 2rem 1rem;
+  padding: 2rem;
   gap: 3rem;
   margin: auto;
-  max-width: 80rem;
+  max-width: 100%;
 }
 
 .image {
   position: relative;
-  width: 30rem;
-  height: 20rem;
+  width: 40rem;
+  height: 30rem;
 }
 
 .header img {
@@ -22,7 +22,7 @@
 .headerText {
   padding: 0.5rem 1rem 0 1rem;
   color: #ddd6cb;
-  max-width: 40rem;
+  max-width: 50rem;
   animation: fade-slide-in-from-right 1s ease-out forwards;
 }
 
@@ -68,8 +68,8 @@
   border-radius: 8px;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   padding: 2rem;
-  max-width: 60rem;
-  margin: 2rem auto;
+  max-width: 92.5rem;
+  margin: 2rem;
   animation: fade-slide-in-from-bottom 1s ease-out forwards;
 }
 
@@ -123,5 +123,41 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (width < 968px) {
+  .image {
+    height: 20rem;
+  }
+}
+
+@media (width < 768px) {
+  .header {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding-right: 2rem;
+  }
+  .image {
+    width: 100%;
+  }
+}
+
+@media (width < 534px) {
+  .header {
+    gap: 1rem;
+  }
+  .headerText h1 {
+    font-size: 2.5rem;
+  }
+  .creator {
+    font-size: 1.25rem;
+  }
+  .summary {
+    font-size: 1.25rem;
+  }
+  .instructions {
+    margin-top: 0;
   }
 }

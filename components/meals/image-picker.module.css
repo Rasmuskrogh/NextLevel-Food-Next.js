@@ -43,3 +43,17 @@
 .preview img {
   object-fit: cover;
 }
+
+@media (width < 590px) {
+  .controls {
+    flex-direction: column;
+  }
+}
+
+@media (width < 450px) {
+  .preview {
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: auto;
+  }
+}

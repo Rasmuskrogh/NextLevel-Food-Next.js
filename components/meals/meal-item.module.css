@@ -73,3 +73,24 @@
   background: linear-gradient(90deg, #fd4715, #f9b241);
   box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
 }
+
+@media (min-width: 768px) {
+  .meal {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1024px) {
+  .meal {
+    flex-direction: column;
+  }
+
+  .image {
+    width: 100%;
+    height: 250px;
+  }
+
+  .content {
+    width: 100%;
+  }
+}

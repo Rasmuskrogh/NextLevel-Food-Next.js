@@ -1,75 +1,170 @@
 .header {
-    display: flex;
-    gap: 3rem;
-    margin: 3rem auto;
-    width: 90%;
-    max-width: 75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem auto;
+  width: 90%;
+  max-width: 75rem;
+  padding: 0.5rem;
+}
+
+.slideshow {
+  width: 100%;
+  height: 15rem;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hero {
+  color: #ddd6cb;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.75rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta {
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.cta a {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cta a:hover,
+.cta a:active {
+  background: linear-gradient(90deg, #fd4715, #f9b241);
+  transform: translateY(-2px);
+}
+
+.cta a:first-child {
+  background: transparent;
+  font-weight: normal;
+  color: #ff9b05;
+  padding-left: 0;
+  order: -1;
+}
+
+.cta a:first-child:hover,
+.cta a:first-child:active {
+  background: transparent;
+  color: #f9b241;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  color: #ddd6cb;
+  font-size: 1.1rem;
+  max-width: 50rem;
+  width: 90%;
+  margin: 1.5rem auto;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #ff9b05;
+}
+
+.section p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 2rem auto;
   }
-  
+
   .slideshow {
-    width: 40rem;
-    height: 25rem;
+    width: 130%;
+    height: 30rem;
   }
-  
+
   .hero {
-    color: #ddd6cb;
-    font-size: 1.5rem;
+    text-align: left;
+    width: 100%;
+    padding-top: 2rem;
   }
-  
+
   .hero h1 {
     font-size: 2rem;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, #f9572a, #ffc905);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
-  
+
+  .hero p {
+    font-size: 1.25rem;
+  }
+
   .cta {
-    font-size: 1.5rem;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .cta a {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: linear-gradient(90deg, #f9572a, #ff9b05);
-    color: #ffffff;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .cta a:hover,
-  .cta a:active {
-    background: linear-gradient(90deg, #fd4715, #f9b241);
-  }
-  
-  .cta a:first-child {
-    background: transparent;
-    font-weight: normal;
-    color: #ff9b05;
-    padding-left: 0;
-  }
-  
-  .cta a:first-child:hover,
-  .cta a:first-child:active {
-    background: transparent;
-    color: #f9b241;
-  }
-  
-  .section {
-    display: flex;
     flex-direction: column;
-    color: #ddd6cb;
-    font-size: 1.5rem;
-    max-width: 50rem;
-    width: 90%;
-    margin: 2rem auto;
-    text-align: center;
+    align-items: flex-start;
+    margin-top: 2rem;
   }
+
+  .cta a {
+    width: auto;
+  }
+
+  .cta a:first-child {
+    order: -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    margin: 3rem auto;
+  }
+
+  .slideshow {
+    width: 40rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .section {
+    font-size: 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 2rem;
+  }
+}

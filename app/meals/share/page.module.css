@@ -96,3 +96,16 @@
   color: #979797;
   cursor: not-allowed;
 }
+
+@media (width < 590px) {
+  .row {
+    display: block;
+    gap: 0;
+  }
+}
+
+@media (width < 450px) {
+  .actions {
+    text-align: left;
+  }
+}
