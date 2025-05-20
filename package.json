@@ -10,6 +10,7 @@
     "init-db": "node scripts/init-db.js"
   },
   "dependencies": {
+    "cloudinary": "^2.6.1",
     "dotenv": "^16.5.0",
     "next": "14.1.0",
     "pg": "^8.16.0",
