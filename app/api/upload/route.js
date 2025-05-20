@@ -1,5 +1,6 @@
+import { writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import path from "path";
 
 // Använd den nya konfigurationssyntaxen
 export const runtime = "edge"; // Använd edge runtime om det behövs
@@ -11,44 +12,25 @@ export async function POST(request) {
     const file = formData.get("file");
 
     if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    // Ladda upp filen till Supabase Storage
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = `public/${fileName}`;
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-    const { data, error } = await supabase.storage
-      .from("meal-images")
-      .upload(filePath, file, { cacheControl: "3600", upsert: false });
+    // Spara filen i public/images mappen
+    const fileName = file.name;
+    const filePath = path.join(process.cwd(), "public", "images", fileName);
+    await writeFile(filePath, buffer);
 
-    if (error) {
-      console.error("Upload error:", error);
-      return NextResponse.json(
-        { error: "Failed to upload file" },
-        { status: 500 }
-      );
-    }
-
-    // Hämta den publika URL:en för den uppladdade filen
-    const { data: publicUrlData, error: urlError } = supabase.storage
-      .from("meal-images")
-      .getPublicUrl(filePath);
-
-    if (urlError || !publicUrlData?.publicUrl) {
-      console.error("URL error:", urlError);
-      return NextResponse.json(
-        { error: "Failed to get file URL" },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ url: publicUrlData.publicUrl });
+    // Returnera den publika sökvägen till filen
+    return NextResponse.json({
+      url: `/images/${fileName}`,
+    });
   } catch (error) {
-    console.error("Server error:", error);
+    console.error("Error uploading file:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Error uploading file" },
       { status: 500 }
     );
   }
