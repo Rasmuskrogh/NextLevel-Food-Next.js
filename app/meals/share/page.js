@@ -1,6 +1,8 @@
 "use client";
 
 import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import ImagePicker from "@/components/meals/image-picker";
 import classes from "./page.module.css";
@@ -8,7 +10,14 @@ import { shareMeal } from "@/lib/actions";
 import MealsFormSubmit from "@/components/meals/meal-form-submit";
 
 export default function ShareMealPage() {
+  const router = useRouter();
   const [state, formAction] = useFormState(shareMeal, { message: null });
+
+  useEffect(() => {
+    if (state.success) {
+      router.push("/meals");
+    }
+  }, [state, router]);
 
   return (
     <>
