@@ -15,7 +15,7 @@ export default function ShareMealPage() {
 
   useEffect(() => {
     if (state.success) {
-      router.push("/meals");
+      router.replace("/meals");
     }
   }, [state, router]);
 
